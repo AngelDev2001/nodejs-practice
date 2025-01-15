@@ -1,4 +1,4 @@
-const fs = require("node:fs/promises")
+const fs = require("node:fs/promises");
 
 // const stats = fs.statSync("./archivo.txt")
 //
@@ -32,14 +32,31 @@ const fs = require("node:fs/promises")
 // console.log(text)
 // })
 
-console.log("Leyendo el primer archivo...")
-fs.readFile("./archivo.txt", "utf8", (err, text) => {
-    console.log(text)
-})
+// const {promisify} = require("node:util")
+//
+// const readFilePromise = promisify(fs.readFile)
+//
+// console.log("Leyendo el primer archivo...")
+// readFilePromise("./archivo.txt", "utf8")
+//
+// console.log("Hacer cosas mientras lee el archivo")
+//
+// console.log("Leyendo el segundo archivo...")
+// readFilePromise("./archivo2.txt", "utf8")
 
-console.log("Hacer cosas mientras lee el archivo")
+// (async () => {
+//     console.log("Leyendo el primer archivo...")
+//     const text = await fs.readFile("./archivo.txt", "utf8")
+//     console.log("Primer archivo: ",text)
+//
+//     console.log("Hacer cosas mientras lee el archivo")
+//
+//     console.log("Leyendo el segundo archivo...")
+//     const secondText = await fs.readFile("./archivo2.txt", "utf8")
+//     console.log("Segundo archivo: ",secondText)
+// })()
 
-console.log("Leyendo el segundo archivo...")
-fs.readFile("./archivo2.txt", "utf8", (err, text) => {
-    console.log(text)
+Promise.all([readFile("./archivo.txt", "utf8"), readFile("./archivo2.txt", "utf8")]).then(([text, secondText]) => {
+    console.log("Primer archivo: ",text)
+    console.log("Segundo archivo: ",secondText)
 })
